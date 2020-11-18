@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">E M S</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="this_is_home_screen">This is home screen</string>
+    <string name="this_is_work_screen">This is work screen</string>
+    <string name="this_is_other_screen">This is other screen</string>
+    <string name="this_is_custom_screen">This is custom screen</string>
+
+    <string-array name="names">
+        <item> </item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+    </string-array>
+    <!-- Register -->
+    <string name="Reg_Hint_Usr">اسم المستخدم</string>
+    <string name="Reg_Hint_AdrsW">الولاية</string>
+    <string name="Reg_Hint_AdrsC">المدينة</string>
+    <string name="Reg_Hint_Ph">الهاتف</string>
+    <string name="Reg_Hint_Email">البريد الإلكتروني</string>
+    <string name="Reg_Hint_Ps">كلمة المرور</string>
+    <string name="Reg_Hint_ConPs">تأكيد كلمة المرور </string>
+    <string name="Reg_Hint_Button">تسجيل</string>
+    <!-- Register Toast-->
+    <string name="toast_usr">ادخل اسم المستخدم</string>
+    <string name="toast_addW">أدخل ولايتك</string>
+    <string name="toast_addC">أدخل مدينتك</string>
+    <string name="toast_ph">أدخل رقم هاتفك</string>
+    <string name="toast_email">أدخل بريدك الإلكتروني</string>
+    <string name="toast_vemail">أدخل بريد إلكتروني متاح</string>
+    <string name="toast_ps">ادخل رقمك السري</string>
+    <string name="toast_Min">يجب أن يكون الحد الأدنى لطول كلمة المرور 6</string>
+    <string name="toast_cpsd">أكد رقمك السري</string>
+    <string name="toast_chk">تحقق من كلمة المرور الخاصة بك</string>
+    <string name="toast_or">لا يمكنك التسجيل باستخدام هذا البريد الإلكتروني أو كلمة المرور</string>
+    <string name="Error">خطأ</string>
+    <string name="Wrong">مستخدم خاطئ</string>
+    <!-- activityMain -->
+    <string name="together">معًا نجعل الحياة أسهل</string>
+    <string name="make">اجعل الأشياء تصل إليك بنقرة واحدة ، دعنا نقدم لك العروض.</string>
+    <!-- Login -->
+    <string name="Login_Hint_Email">البريد الإلكتروني</string>
+    <string name="Login_Hint_Ps">كلمة المرور</string>
+    <string name="Login_Button">تسجيل الدخول</string>
+    <!-- Navigation Bar -->
+    <string name="Item_H">الرئسية</string>
+    <string name="Item_B">السلة</string>
+    <string name="Item_F">المفضل</string>
+    <string name="Item_P">ملف الشخصي</string>
+    <!-- Fragment 1 -->
+    <string name="search_hint">بحث</string>
+    <string name="food">الطعام</string>
+    <string name="caf">كافيتريا</string>
+    <string name="Pat">حلويات</string>
+    <string name="others"> أخرى</string>
+    <!-- Pop Search -->
+    <string name="Pop_IN">INPUT..</string>
+    <string name="Pop_Bt_Sh">SEARCH</string>
+    <string name="Pop_Bt_Cl">CLOSE</string>
+    <!-- Fragment 2 -->
+    <string name="Frag2_NonCon_text">الطلبات المختارة</string>
+    <string name="Frag2_Con_text">الطلبات مؤكدة</string>
+    <string name="Frag2_Con_text2">الطلبات مؤكدة</string>
+    <string name="Frag2_Price_text">السعر</string>
+    <string name="Frag2_Pos_text">موقعك</string>
+    <string name="Frag2_Button">تأكيد</string>
+    <string name="price">السعر ب DA</string>
+    <string name="home">منزلك</string>
+    <string name="current">موقعك الحالي</string>
+    <string name="total">السعر الكلي :</string>
+    <!-- Fragment fav -->
+    <string name="fav">المتاجر المفضلة</string>
+    <!-- menu-->
+    <string name="basket">السلة</string>
+    <string name="nothing">لا شيء مضاف بعد</string>
+    <!-- Fragment 3 -->
+    <string name="Frag3_name_Text">الإسم</string>
+    <string name="Frag3_RK_Hint">التقييم</string>
+    <string name="Frag3_Us_Hint">اسم المستخدم</string>
+    <string name="Frag3_Adrs_Hint">العنوان</string>
+    <string name="Frag3_ph_Hint">الهاتف</string>
+    <string name="Frag3_Dev_Hint">التوصيل (نعم / لا)</string>
+    <string name="Frag3_more_Hint">أكثر</string>
+    <string name="Frag3_Button">تأكيد</string>
+    <string name="Lang"> تغيير اللغة</string>
+    <string name="auth">المصادقة</string>
+    <string name="cord">إحداثيات المنزل</string>
+    <string name="desc">الوصف..</string>
+    <string name="ChooseLang">اختر اللغة ..</string>
+    <string name="Frag3_logout">تسجيل خروج</string>
+</resources>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.Fragment_2"
+    android:id="@+id/frameLayout"
+    android:focusable="true"
+    android:clickable="true">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_below="@id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <RelativeLayout
+                        android:id="@+id/confirmed_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_border_1"
+                        android:layout_alignParentTop="true"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="13dp">
+
+                        <TextView
+                            android:layout_toStartOf="@+id/progress"
+                            android:id="@+id/confirmed_orders_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="13dp"
+                            android:paddingTop="5dp"
+                            android:paddingLeft="17dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/background_material_light"
+                            android:paddingBottom="5dp"
+                            android:text="@string/Frag2_Con_text"
+                            android:textAlignment="viewStart" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/progress"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="7dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:src="@drawable/progress"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="23dp"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <RelativeLayout
+                        android:id="@+id/non_confirmed_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/button_border_01"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="13dp">
+
+                        <TextView
+                            android:layout_toStartOf="@+id/loading"
+                            android:id="@+id/non_confirmed_orders_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="13dp"
+                            android:paddingTop="5dp"
+                            android:paddingLeft="17dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:paddingBottom="5dp"
+                            android:text="@string/Frag2_NonCon_text"
+                            android:textAlignment="viewStart" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/loading"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="7dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:src="@drawable/loading"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="23dp"/>
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_non_confirmed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/card_2"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:visibility="visible" />
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/nothing"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:importantForAutofill="auto"
+                    android:layout_marginBottom="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/box_"/>
+
+            </RelativeLayout>
+
+        </LinearLayout >
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/popUp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="#AE000000"
+        android:padding="13dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_toStartOf="@+id/close"
+            android:layout_above="@+id/p"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="7dp"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textColor="#fff"
+            android:text="@string/price"/>
+
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/close"
+            android:elevation="3dp"
+            android:layout_above="@+id/p"
+            android:layout_alignParentEnd="true"
+            android:visibility="visible"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/box"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            app:cardCornerRadius="13dp"
+            android:backgroundTint="@color/custom_white">
+
+            <LinearLayout
+                android:id="@+id/price_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/counter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textColor="@color/dark_orange"
+                    android:text="00000"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="13dp"
+            app:cardCornerRadius="13dp"
+            android:backgroundTint="@color/background_material_light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    tools:ignore="InvalidId">
+
+                    <RadioButton
+                        android:id="@+id/homeAddress"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ems="10"
+                        android:paddingStart="3dp"
+                        android:text="@string/home"
+                        android:checked="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_orange"
+                        android:textSize="18sp"
+                        tools:ignore="OnClick,RtlCompat" />
+
+                    <RadioButton
+                        android:id="@+id/currentAddress"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ems="10"
+                        android:paddingStart="3dp"
+                        android:textStyle="bold"
+                        android:text="@string/current"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/dark_orange"
+                        android:textSize="18sp"
+                        tools:ignore="OnClick,RtlCompat,UnknownId" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/latlng_holder"
+                    android:layout_below="@+id/radioGroup"
+                    android:layout_toEndOf="@+id/radioGroup"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="vertical"
+                    android:layout_marginTop="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/lat"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="13dp"
+                        android:textStyle="normal"
+                        android:layout_alignParentTop="true"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        android:textColor="@color/colorPrimary"
+                        android:text="0.0"/>
+
+                    <TextView
+                        android:id="@+id/lng"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="13dp"
+                        android:textStyle="normal"
+                        android:layout_alignParentTop="true"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="0.0"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_below="@+id/box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/Frag2_Button"
+            android:elevation="23dp"
+            android:padding="3dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="-25dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/button_border_2"/>
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_confirm"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/confim_2"
+        app:backgroundTint="@color/orange"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

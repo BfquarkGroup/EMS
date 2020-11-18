@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">E M S</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="this_is_home_screen">This is home screen</string>
+    <string name="this_is_work_screen">This is work screen</string>
+    <string name="this_is_other_screen">This is other screen</string>
+    <string name="this_is_custom_screen">This is custom screen</string>
+
+    <string-array name="names">
+        <item> </item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+    </string-array>
+    <!-- Register -->
+    <string name="Reg_Hint_Usr">Nom d\'utilisateur</string>
+    <string name="Reg_Hint_AdrsW">Wilaya</string>
+    <string name="Reg_Hint_AdrsC">Ville</string>
+    <string name="Reg_Hint_Ph">Téléphone</string>
+    <string name="Reg_Hint_Email">Email</string>
+    <string name="Reg_Hint_Ps">Mot de passe</string>
+    <string name="Reg_Hint_ConPs">Confirmez le mot de passe</string>
+    <string name="Reg_Hint_Button"> S\'INSCRIRE</string>
+    <!-- Register Toast-->
+    <string name="toast_usr">Saisissez votre nom d\'utilisateur</string>
+    <string name="toast_addW">entrez dans votre wilaya</string>
+    <string name="toast_addC">entrez votre ville</string>
+    <string name="toast_ph">entrez votre numéro de téléphone</string>
+    <string name="toast_email">entrer votre Email</string>
+    <string name="toast_vemail">entrer un email valide</string>
+    <string name="toast_ps">tapez votre mot de passe</string>
+    <string name="toast_Min">La longueur minimale du mot de passe doit être de 6</string>
+    <string name="toast_cpsd">confirmer votre mot de passe</string>
+    <string name="toast_chk">vérifiez votre mot de passe</string>
+    <string name="toast_or">Vous ne pouvez pas vous inscrire avec cet e-mail ou ce mot de passe</string>
+    <string name="Error">Erreur</string>
+    <string name="Wrong">Mauvais utilisateur</string>
+    <!-- activityMain -->
+    <string name="together">ensemble nous rendons la vie plus facile </string>
+    <string name="make">Faites en sorte que les choses vous parviennent en un clic, laissez-nous vous présenter les offres.</string>
+    <!-- Login -->
+    <string name="Login_Hint_Email">Email</string>
+    <string name="Login_Hint_Ps">Mot de passe</string>
+    <string name="Login_Button">SE CONNECTER</string>
+    <!-- Navigation Bar -->
+    <string name="Item_H">Accueil</string>
+    <string name="Item_B">Panier</string>
+    <string name="Item_F">Favoris</string>
+    <string name="Item_P">Profil</string>
+    <!-- Fragment 1 -->
+    <string name="search_hint">Chercher</string>
+    <string name="food">Food</string>
+    <string name="caf">Cafeteria</string>
+    <string name="Pat">Pâtisseries</string>
+    <string name="others">Autres</string>
+    <!-- Pop Search -->
+    <string name="Pop_IN">INPUT..</string>
+    <string name="Pop_Bt_Sh">SEARCH</string>
+    <string name="Pop_Bt_Cl">CLOSE</string>
+    <!-- Fragment 2 -->
+    <string name="Frag2_NonCon_text">Les commandes choisies</string>
+    <string name="Frag2_Con_text"> les commandes confirmées</string>
+    <string name="Frag2_Con_text2">Les commandes confirmées</string>
+    <string name="Frag2_Price_text">Prix</string>
+    <string name="Frag2_Pos_text">Position</string>
+    <string name="Frag2_Button">CONFIRMER</string>
+    <string name="price">Le prix est sur DA</string>
+    <string name="home">à ma maison</string>
+    <string name="current">ma position actuelle</string>
+    <string name="total">Prix ​​total :</string>
+    <!-- Fragment fav -->
+    <string name="fav">Magasins préférés</string>
+    <!-- menu-->
+    <string name="basket">PANIER</string>
+    <string name="nothing">Rien n\'a encore été ajouté</string>
+    <!-- Fragment 3 -->
+    <string name="Frag3_name_Text">Le nom</string>
+    <string name="Frag3_RK_Hint">Classement</string>
+    <string name="Frag3_Us_Hint">Nom d\'utilisateur</string>
+    <string name="Frag3_Adrs_Hint">Adresse</string>
+    <string name="Frag3_ph_Hint">Téléphone</string>
+    <string name="Frag3_Dev_Hint">Livraison (oui / non)</string>
+    <string name="Frag3_more_Hint">Plus</string>
+    <string name="Frag3_Button">CONFIRMER</string>
+    <string name="Lang">CHANGER LA LANGUE</string>
+    <string name="auth">Authentification</string>
+    <string name="cord">Coordonnées du domicile</string>
+    <string name="desc">La description..</string>
+    <string name="ChooseLang">CHOISISSEZ LA LANGUE ..</string>
+    <string name="Frag3_logout">Se déconnecter</string>
+</resources>

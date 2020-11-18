@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    app:cnb_unselectedColor="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/Item_H"
+        android:icon="@drawable/home_2"
+        app:cnb_backgroundColor="@color/background_material_light"
+        app:cnb_iconColor="@color/dark_orange"
+        app:cnb_textColor="@color/dark_orange"/>
+
+    <item
+        android:id="@+id/list"
+        android:title="@string/Item_B"
+        android:icon="@drawable/basket"
+        app:cnb_backgroundColor="@color/background_material_light"
+        app:cnb_iconColor="@color/dark_orange"
+        app:cnb_textColor="@color/dark_orange"/>
+
+    <item
+        android:id="@+id/favorite"
+        android:title="@string/Item_F"
+        android:icon="@drawable/favorites"
+        app:cnb_backgroundColor="@color/background_material_light"
+        app:cnb_iconColor="@color/dark_orange"
+        app:cnb_textColor="@color/dark_orange"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="@string/Item_P"
+        android:icon="@drawable/person"
+        app:cnb_backgroundColor="@color/background_material_light"
+        app:cnb_iconColor="@color/dark_orange"
+        app:cnb_textColor="@color/dark_orange"/>
+
+</menu>
