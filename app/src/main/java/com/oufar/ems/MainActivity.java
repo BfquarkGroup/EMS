@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint({"NewApi", "PrivateResource"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        // hello world
         loadlocale();
 
         super.onCreate(savedInstanceState);
