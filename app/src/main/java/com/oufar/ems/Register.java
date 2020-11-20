@@ -194,6 +194,9 @@ public class Register extends AppCompatActivity {
                             hashMap.put("homeLat", "0.0");
                             hashMap.put("homeLng", "0.0");
 
+                            Intent intent = new Intent(getBaseContext(), ChatActivity.class);
+                            intent.putExtra("UserName", username.getText().toString());
+                            startActivity(intent);
                             firestore.collection("Client").document(userid).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
