@@ -62,6 +62,7 @@
         <item>48</item>
     </string-array>
     <!-- Register -->
+    <string name="Reg_Name">الإسم</string>
     <string name="Reg_Hint_Usr">اسم المستخدم</string>
     <string name="Reg_Hint_AdrsW">الولاية</string>
     <string name="Reg_Hint_AdrsC">المدينة</string>
@@ -70,6 +71,8 @@
     <string name="Reg_Hint_Ps">كلمة المرور</string>
     <string name="Reg_Hint_ConPs">تأكيد كلمة المرور </string>
     <string name="Reg_Hint_Button">تسجيل</string>
+    <string name="Reg_Auth">المصادقة</string>
+    <string name="Reg_Adrs">العنوان</string>
     <!-- Register Toast-->
     <string name="toast_usr">ادخل اسم المستخدم</string>
     <string name="toast_addW">أدخل ولايتك</string>

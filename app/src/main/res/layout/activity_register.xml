@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:paddingStart="5dp"
-                android:text="Name"
+                android:text="@string/Reg_Name"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/custom_black"/>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:paddingStart="5dp"
-                android:text="Address"
+                android:text="@string/Reg_Adrs"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/custom_black"/>
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:paddingStart="5dp"
-                android:text="Authentication"
+                android:text="@string/Reg_Auth"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/custom_black"/>

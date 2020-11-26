@@ -22,4 +22,7 @@
     <color name="test">#7C06091B</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="dark_blue">#0F1435</color>
+
+    <color name="onesignal_bgimage_notif_title_color">#8BC34A</color>
+    <color name="onesignal_bgimage_notif_body_color">#FFEB3B</color>
 </resources>

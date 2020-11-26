@@ -62,6 +62,7 @@
         <item>48</item>
     </string-array>
     <!-- Register -->
+    <string name="Reg_Name">Nom</string>
     <string name="Reg_Hint_Usr">Nom d\'utilisateur</string>
     <string name="Reg_Hint_AdrsW">Wilaya</string>
     <string name="Reg_Hint_AdrsC">Ville</string>
@@ -70,6 +71,8 @@
     <string name="Reg_Hint_Ps">Mot de passe</string>
     <string name="Reg_Hint_ConPs">Confirmez le mot de passe</string>
     <string name="Reg_Hint_Button"> S\'INSCRIRE</string>
+    <string name="Reg_Auth">Authentification</string>
+    <string name="Reg_Adrs">Adresse</string>
     <!-- Register Toast-->
     <string name="toast_usr">Saisissez votre nom d\'utilisateur</string>
     <string name="toast_addW">entrez dans votre wilaya</string>

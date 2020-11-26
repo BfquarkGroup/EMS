@@ -62,6 +62,7 @@
         <item>48</item>
     </string-array>
     <!-- Register -->
+    <string name="Reg_Name">Name</string>
     <string name="Reg_Hint_Usr">Username</string>
     <string name="Reg_Hint_AdrsW">Wilaya</string>
     <string name="Reg_Hint_AdrsC">City</string>
@@ -70,6 +71,8 @@
     <string name="Reg_Hint_Ps">Password</string>
     <string name="Reg_Hint_ConPs">Confirm password</string>
     <string name="Reg_Hint_Button">REGISTER</string>
+    <string name="Reg_Adrs">Address</string>
+    <string name="Reg_Auth">Authentication</string>
     <!-- Register Toast-->
     <string name="toast_usr">enter username</string>
     <string name="toast_addW">enter your wilaya</string>
@@ -123,6 +126,7 @@
     <string name="basket">BASKET</string>
     <string name="nothing">Nothing added yet</string>
     <!-- Fragment 3 -->
+
     <string name="Frag3_name_Text">Name</string>
     <string name="Frag3_RK_Hint">Ranking</string>
     <string name="Frag3_Us_Hint">Username</string>
