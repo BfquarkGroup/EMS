@@ -30,7 +30,7 @@
                     android:id="@+id/card_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     app:cardCornerRadius="7dp">
@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_border_1"
                         android:layout_alignParentTop="true"
-                        android:paddingTop="3dp"
+                        android:padding="7dp"
                         android:paddingBottom="13dp">
 
                         <TextView
@@ -50,15 +50,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:paddingRight="13dp"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="17dp"
                             android:textSize="18sp"
                             android:textStyle="bold"
-                            android:textColor="@color/background_material_light"
-                            android:paddingBottom="5dp"
+                            android:textColor="@color/custom_white"
                             android:text="@string/Frag2_Con_text"
-                            android:textAlignment="viewStart" />
+                            android:textAlignment="textStart" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/progress"
@@ -70,7 +66,7 @@
                             android:src="@drawable/progress"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="23dp"/>
+                            android:layout_marginStart="5dp"/>
 
                     </RelativeLayout>
 
@@ -92,8 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:background="@drawable/button_border_01"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="13dp">
+                        android:padding="7dp">
 
                         <TextView
                             android:layout_toStartOf="@+id/loading"
@@ -101,15 +96,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:paddingRight="13dp"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="17dp"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:paddingBottom="5dp"
                             android:text="@string/Frag2_NonCon_text"
-                            android:textAlignment="viewStart" />
+                            android:textAlignment="textStart" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/loading"
@@ -121,7 +112,7 @@
                             android:src="@drawable/loading"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="23dp"/>
+                            android:layout_marginStart="5dp"/>
 
 
                     </RelativeLayout>

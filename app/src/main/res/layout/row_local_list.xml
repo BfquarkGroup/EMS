@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         app:cardCornerRadius="7dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="160dp"
@@ -207,7 +207,7 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

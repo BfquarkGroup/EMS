@@ -82,7 +82,7 @@ public class Fragment_3 extends Fragment {
 
     private static final int IMAGE_REQUEST = 1;
 
-    private CircleImageView language_picture;
+    private ImageView language_picture;
     private ProgressBar progressBar;
     private TextView t_username, t_phone, t_city, language_txt, wilaya, btn_logout;
     private EditText username, city, phone, description, homeAddressInput;
