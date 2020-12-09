@@ -1,35 +1,37 @@
 package com.oufar.ems;
 
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.KeyboardShortcutGroup;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,31 +44,39 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.WriterException;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.onesignal.OneSignal;
-import com.oufar.ems.Database.DB;
-import com.oufar.ems.Database.Favorite;
-import com.oufar.ems.Fragments.Fragment_1;
-import com.oufar.ems.Fragments.Fragment_2;
-import com.oufar.ems.Fragments.Fragment_3;
-import com.oufar.ems.Fragments.Fragment_Favorite;
+import com.oufar.ems.Adapter.HomeAdapter;
+import com.oufar.ems.Fragments.BasketFragment;
+import com.oufar.ems.Fragments.FavoriteFragment;
+import com.oufar.ems.Fragments.HomeFragment;
+import com.oufar.ems.Fragments.ProfileFragment;
+import com.oufar.ems.Model.Info;
+import com.oufar.ems.Model.Plate;
+import com.oufar.ems.Model.Store;
 
 import java.util.ArrayList;
 
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+
 public class Home extends AppCompatActivity {
 
-    ProgressBar progressBar;
+    private TextView dynamic_txt;
+    private ImageView dynamic;
+    private FragmentManager fragmentManager;
+    private Fragment fragment = null;
+    private String QRCode = "", click = "1";
+    private LinearLayout QRCodeLayout;
+    private ImageView QRCodeOutput;
 
-    private ChipNavigationBar navigation_bar;
-    private ViewPager viewPager;
-    private int index = 0;
-    private String check = "";
-    private DB db;
 
-    private FirebaseFirestore firestore;
-    FirebaseUser firebaseUser;
+
     private String Store_id, Store_name, Store_image, Store_status, Store_email;
     private String B;
+    private String totalPrice = "";
 
     String txt_username = "";
     String txt_phone = "";
@@ -77,18 +87,14 @@ public class Home extends AppCompatActivity {
     String home_lat = "";
     String home_lng = "";
     String txt_description = "";
-    String imageURL = "";
-
-     private Intent intent;
-
+    String profile_imageURL ="";
+    String avatar = "";
 
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        // Logging set to help debug issues, remove before releasing your app.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
         // OneSignal Initialization
         OneSignal.startInit(this)
@@ -110,7 +116,7 @@ public class Home extends AppCompatActivity {
             getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.orange));
         }
 
-        setNavigationBarButtonsColor(this, R.color.orange);
+        setNavigationBarButtonsColor(this);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -123,194 +129,347 @@ public class Home extends AppCompatActivity {
 
         B = Basket;
 
-        db = new DB(this);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        firestore = FirebaseFirestore.getInstance();
-
-        //downloadInfo();
-        downloadInfo_();
-
-        navigation_bar = findViewById(R.id.navigation_bar);
-        viewPager = findViewById(R.id.view_pager);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        /*if (Basket.equals("basket")){
-
-            navigation_bar.setItemSelected(R.id.basket, true);
-        }else if (Basket.equals("no")) {
-
-            navigation_bar.setItemSelected(R.id.home, true);
-        }*/
-
-        //Toast.makeText(Home.this, Basket, Toast.LENGTH_SHORT).show();
-
-        navigation_bar.setItemSelected(R.id.home, true);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        viewPager.setAdapter(viewPagerAdapter);
+        dynamic_txt = findViewById(R.id.dynamic_txt);
+        ChipNavigationBar navigation_bar = findViewById(R.id.navigation_bar);
+        dynamic = findViewById(R.id.dynamic);
+        QRCodeLayout = findViewById(R.id.QRCodeLayout);
+        QRCodeOutput = findViewById(R.id.QRCodeOutput);
 
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        final Fragment_1 fragment_1 = new Fragment_1();
-        final Fragment_2 fragment_2 = new Fragment_2();
-        final Fragment_Favorite fragment_favorite = new Fragment_Favorite();
-        final Fragment_3 fragment_3 = new Fragment_3();
-        adapter.addFragment(fragment_1);
-        adapter.addFragment(fragment_2);
-        adapter.addFragment(fragment_favorite);
-        adapter.addFragment(fragment_3);
-        viewPager.setAdapter(adapter);
+        final HomeFragment homeFragment = new HomeFragment();
+        final BasketFragment basketFragment = new BasketFragment();
+        final FavoriteFragment favoriteFragment = new FavoriteFragment();
+        final ProfileFragment profileFragment = new ProfileFragment();
+        adapter.addFragment(homeFragment);
+        adapter.addFragment(basketFragment);
+        adapter.addFragment(favoriteFragment);
+        adapter.addFragment(profileFragment);
 
-        index = 1;
+        navigation_bar.setItemSelected(R.id.home, true);
+        QRCode = "";
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, homeFragment)
+                .commit();
 
         navigation_bar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int id) {
 
                 switch(id){
+
                     case R.id.home:
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.list:
-                        viewPager.setCurrentItem(1);
 
-                        if (!Basket.equals("basket")){
-
-                            fragment_2.checkMenu();
-                        }
-                        //fragment_2.checkMenu();
+                        fragment = homeFragment;
+                        QRCode = "";
                         break;
+
+                    case R.id.basket:
+
+                        fragment = basketFragment;
+                        QRCode = "";
+                        break;
+
                     case R.id.favorite:
-                        viewPager.setCurrentItem(2);
+
+                        fragment = favoriteFragment;
+                        QRCode = "";
                         break;
+
                     case R.id.profile:
-                        viewPager.setCurrentItem(3);
+
+                        fragment = profileFragment;
+                        QRCode = "QRCode";
                         break;
                 }
 
+                if (fragment != null){
+
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainer, fragment)
+                            .commit();
+
+
+                    if (fragment == homeFragment){
+
+                        dynamic_txt.setText("Stores");
+                        dynamic.setImageResource(R.drawable.compass);
+
+
+                    }else if (fragment == basketFragment){
+
+                        dynamic_txt.setText(totalPrice);
+                        dynamic.setImageResource(R.drawable.basket_3);
+                        QRCodeLayout.setVisibility(View.GONE);
+                        click = "1";
+
+                    }else if (fragment == favoriteFragment){
+
+                        dynamic_txt.setText("Best stores");
+                        dynamic.setImageResource(R.drawable.heart_orange_2);
+                        QRCodeLayout.setVisibility(View.GONE);
+                        click = "1";
+
+                    }else if (fragment == profileFragment){
+
+                        dynamic_txt.setText("Profile");
+                        dynamic.setImageResource(R.drawable.qrcode_orange);
+                        QRCodeLayout.setVisibility(View.GONE);
+                        click = "1";
+                    }
+                }
             }
         });
 
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String data = firebaseUser.getUid();
+        if(data.isEmpty()){
 
-        if (Basket.equals("basket")){
-
-            viewPager.setCurrentItem(1);
-            navigation_bar.setItemSelected(R.id.list, true);
+            Toast.makeText(Home.this, "check your network", Toast.LENGTH_SHORT).show();
+            //qrvalue.setError("Value Required.");
+        }else {
+            QRGEncoder qrgEncoder = new QRGEncoder(data,null, QRGContents.Type.TEXT,500);
+            try {
+                Bitmap qrBits = qrgEncoder.encodeAsBitmap();
+                QRCodeOutput.setImageBitmap(qrBits);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
         }
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        dynamic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onClick(View v) {
 
-            }
+                if (QRCode.equals("QRCode") && click.equals("1")){
 
-            @Override
-            public void onPageSelected(int position) {
+                    QRCodeLayout.setVisibility(View.VISIBLE);
+                    click = "2";
+                }else if (QRCode.equals("QRCode") && click.equals("2")){
 
-                if (position == 0){
-
-                    navigation_bar.setItemSelected(R.id.home, true);
-                    navigation_bar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(int id) {
-
-                            switch(id){
-                                case R.id.home:
-                                    viewPager.setCurrentItem(0);
-                                    break;
-                                case R.id.list:
-                                    viewPager.setCurrentItem(1);
-                                    fragment_2.checkMenu();
-                                    break;
-                                case R.id.favorite:
-                                    viewPager.setCurrentItem(2);
-                                    break;
-                                case R.id.profile:
-                                    viewPager.setCurrentItem(3);
-                                    break;
-                            }
-                        }
-                    });
-
-                    index = 0;
-
-                }else if (position == 1){
-
-                    navigation_bar.setItemSelected(R.id.list, true);
-
-                    if(index == 0 || index == 2){
-
-                        //fragment_2.downloadPlates_2();
-                    }
-                    index = 1;
-                    //Toast.makeText(Home.this, ""+index, Toast.LENGTH_SHORT).show();
-                }else if (position == 2){
-
-                    navigation_bar.setItemSelected(R.id.favorite, true);
-                    navigation_bar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(int id) {
-
-                            switch(id){
-                                case R.id.home:
-                                    viewPager.setCurrentItem(0);
-                                    break;
-                                case R.id.list:
-                                    viewPager.setCurrentItem(1);
-                                    fragment_2.checkMenu();
-                                    break;
-                                case R.id.favorite:
-                                    viewPager.setCurrentItem(2);
-                                    break;
-                                case R.id.profile:
-                                    viewPager.setCurrentItem(3);
-                                    break;
-                            }
-                        }
-                    });
-
-                    index = 2;
-
-                }else if (position == 3){
-
-                    navigation_bar.setItemSelected(R.id.profile, true);
-                    navigation_bar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(int id) {
-
-                            switch(id){
-                                case R.id.home:
-                                    viewPager.setCurrentItem(0);
-                                    break;
-                                case R.id.list:
-                                    viewPager.setCurrentItem(1);
-                                    fragment_2.checkMenu();
-                                    break;
-                                case R.id.favorite:
-                                    viewPager.setCurrentItem(2);
-                                    break;
-                                case R.id.profile:
-                                    viewPager.setCurrentItem(3);
-                                    break;
-                            }
-                        }
-                    });
-
-                    index = 3;
+                    QRCodeLayout.setVisibility(View.GONE);
+                    click = "1";
                 }
             }
+        });
 
+        QRCodeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onClick(View v) {
 
+                QRCodeLayout.setVisibility(View.GONE);
             }
         });
+
+        //home();
+        checkBasket();
+        //favorite();
+        profile();
 
     }
 
-    public  void  downloadInfo_(){
+    private void hideNavBar() {
+
+        Home.this.getWindow().addFlags( WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN );
+
+    }
+
+// homeFragment
+
+    private ArrayList<Store> STORES = new ArrayList<>();
+    private ArrayList<Store> allStores = new ArrayList<>();
+    public void home() {
+
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        if (firebaseUser != null) {
+
+            firestore.collection("Store").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                    allStores.clear();
+
+                    assert queryDocumentSnapshots != null;
+
+                    if (firebaseUser != null && queryDocumentSnapshots != null) {
+
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+
+                            assert doc != null;
+
+                            String address = doc.getString("city");
+                            String delivery = doc.getString("delivery");
+                            String description = doc.getString("description");
+                            String email = doc.getString("email");
+                            String id = doc.getString("id");
+                            String imageURL = doc.getString("imageURL");
+                            String phone = doc.getString("phone");
+                            String username = doc.getString("username");
+                            String status = doc.getString("status");
+                            String profession = doc.getString("profession");
+                            String rate = doc.getString("rate");
+
+
+                            Store s = new Store(address, delivery, description, email,
+                                    id, imageURL, phone, username, status, profession, "");
+
+                            allStores.add(s);
+                        }
+                    }
+
+                    getStores(allStores);
+                }
+            });
+        }
+
+    }
+
+
+    private void getStores(ArrayList<Store> allStores){
+
+        STORES = allStores;
+    }
+
+    public ArrayList<Store> stores() {
+
+        return STORES;
+    }
+
+    // basketFragment
+
+    public ArrayList<Plate> mNames = new ArrayList<>();
+    public ArrayList<Info> infoList = new ArrayList<>();
+
+    public EditText price;
+    public String Price;
+
+    public void checkBasket() {
+
+        DatabaseReference reference;
+        final FirebaseUser firebaseUser;
+        FirebaseAuth auth;
+
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
+
+        reference = FirebaseDatabase.getInstance().getReference("Orders");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChild(firebaseUser.getUid())){
+
+                    downloadMenu();
+
+                }else {
+
+                    if (mNames.size() == 0) {
+
+                        Price = " 0 DA";
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void downloadMenu() {
+
+
+        final DatabaseReference reference;
+        final FirebaseUser firebaseUser;
+        FirebaseAuth auth;
+
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
+
+        reference = FirebaseDatabase.getInstance().getReference("Orders");
+
+        reference.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                mNames.clear();
+                infoList.clear();
+
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                    String Id = snapshot.child("id").getValue().toString();
+                    String Plate = snapshot.child("plate").getValue().toString();
+                    String Price = snapshot.child("price").getValue().toString();
+                    String Description = snapshot.child("description").getValue().toString();
+                    String ImageURL = snapshot.child("imageURL").getValue().toString();
+                    String StoreId = snapshot.child("storeId").getValue().toString();
+                    String Number = snapshot.child("number").getValue().toString();
+                    String Status = snapshot.child("status").getValue().toString();
+                    String Store = snapshot.child("storeName").getValue().toString();
+                    String StoreEmail = snapshot.child("storeName").getValue().toString();
+
+                    if (Number.equals("0")){
+
+                        reference.child(firebaseUser.getUid()).child(Id).removeValue();
+                    }
+
+                    com.oufar.ems.Model.Plate plate = new Plate(Id, Plate, Price, Description, ImageURL, StoreId,"", Number, Status, StoreEmail);
+
+                    com.oufar.ems.Model.Plate p = new Plate("", "", "", "", "", "", "", "", "", "");
+
+                    Info info = new Info(Id, StoreId, Store, Price, Number);
+
+                    Price = " 0 DA";
+
+                    mNames.add(plate);
+
+                    if (Status.equals("accepted")) {
+                        infoList.add(info);
+                    }
+                }
+
+                L();
+                totalPrice(infoList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void totalPrice(ArrayList<Info> infoList){
+
+        int total = 0;
+
+        for(int i = 0; i < infoList.size();i++){
+
+            total += Integer.parseInt(infoList.get(i).getPrice()) * Integer.parseInt(infoList.get(i).getNumber());
+
+            totalPrice = "Total "+total+" DA";
+
+        }
+    }
+
+    public ArrayList<Plate> L (){
+
+        return mNames;
+    }
+
+    //profileFragment
+
+    public  void  profile(){
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
         if (!firebaseUser.getUid().isEmpty()) {
 
@@ -322,8 +481,6 @@ public class Home extends AppCompatActivity {
 
                     if (documentSnapshot != null) {
 
-                        progressBar.setVisibility(View.GONE);
-
                         txt_username = documentSnapshot.get("username").toString();
                         txt_phone = documentSnapshot.get("phone").toString();
                         txt_wilaya = documentSnapshot.get("wilaya").toString();
@@ -333,7 +490,7 @@ public class Home extends AppCompatActivity {
                         home_lat = documentSnapshot.get("homeLat").toString();
                         home_lng = documentSnapshot.get("homeLng").toString();
                         txt_description = documentSnapshot.get("description").toString();
-                        imageURL = documentSnapshot.get("imageURL").toString();
+                        profile_imageURL = documentSnapshot.get("imageURL").toString();
 
                     }
                     //Toast();
@@ -371,20 +528,18 @@ public class Home extends AppCompatActivity {
         return txt_description;
     }
     public String ImageURL() {
-        return imageURL;
+        return profile_imageURL;
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    static class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
 
         private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
 
         ViewPagerAdapter (FragmentManager fm){
             super(fm);
             this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
 
         }
 
@@ -399,12 +554,13 @@ public class Home extends AppCompatActivity {
             return fragments.size();
         }
 
-        public void addFragment(Fragment fragment){
+        void addFragment(Fragment fragment){
             fragments.add(fragment);
 
         }
 
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
@@ -421,7 +577,7 @@ public class Home extends AppCompatActivity {
         else if (B.equals("basket")){
 
             Intent intent = new Intent(Home.this, Menu.class);
-            intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("Store_id", Store_id);// sendingBack Store id
             intent.putExtra("Store_name", Store_name);// sendingBack Store name
             intent.putExtra("Store_image", Store_image);// sendingBack Store image Store_email
@@ -433,12 +589,11 @@ public class Home extends AppCompatActivity {
         return false;
     }
 
-
-    private void setNavigationBarButtonsColor(Activity activity, int navigationBarColor) {
+    private void setNavigationBarButtonsColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             View decorView = activity.getWindow().getDecorView();
             int flags = decorView.getSystemUiVisibility();
-            if (isColorLight(navigationBarColor)) {
+            if (isColorLight()) {
                 flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             } else {
                 flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -447,8 +602,9 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private boolean isColorLight(int color) {
-        double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+    private boolean isColorLight() {
+        double darkness = 1 - (0.299 * Color.red(R.color.orange) + 0.587 * Color.green(R.color.orange) + 0.114 * Color.blue(R.color.orange)) / 255;
         return darkness < 0.5;
     }
+
 }

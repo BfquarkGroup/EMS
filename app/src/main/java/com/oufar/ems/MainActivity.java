@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +19,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,25 +32,32 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.onesignal.OneSignal;
 
 import java.util.Locale;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class MainActivity extends AppCompatActivity {
 
-    //Animation uptodown; //downtoup;
-    //private ImageView picture_holder;
-
+    private LinearLayout cover;
+    private GifImageView animation;
     private ProgressBar progressBar;
-    private Button btn_login, register;
-    //private TextView register;
+    private EditText email, password;
+    private Button login;
+    private TextView register;
+    private String txt_email, txt_password;
 
-    FirebaseUser firebaseUser;
-    FirebaseAuth auth;
+    private FirebaseUser firebaseUser;
+    private FirebaseAuth auth;
     private FirebaseFirestore firestore;
+
+    private static String loggmail;
 
     @Override
     protected void onStart() {
@@ -57,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         // checking if the user is online or not (if null means no user is online ein this device)
         if (firebaseUser != null){
 
-            progressBar.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
+            //animation.setImageResource(R.drawable.loading_6);
+            cover.setVisibility(View.VISIBLE);
             auth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = auth.getCurrentUser();
             assert firebaseUser != null;
@@ -67,12 +79,23 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
             progressBar.setVisibility(View.GONE);
-            btn_login.setEnabled(true);
+            login.setEnabled(true);
             register.setEnabled(true);
         }
     }
 
     private void download_data(final String userid) {
+
+
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        Log.d("LOGGED","user"+firebaseUser);
+
+        assert firebaseUser != null;
+        if(firebaseUser != null){
+            loggmail=firebaseUser.getEmail();
+
+        }
+        OneSignal.sendTag("User_ID",loggmail);
 
         final Intent intent = new Intent(MainActivity.this, Home.class);
         intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -99,8 +122,14 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint({"NewApi", "PrivateResource"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // hello world
+
         loadlocale();
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -124,20 +153,46 @@ public class MainActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
-        //picture_holder = findViewById(R.id.picture_holder);
-        btn_login = findViewById(R.id.btn_login);
+        cover = findViewById(R.id.cover);
+        animation = findViewById(R.id.animation);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        login = findViewById(R.id.login);
         register = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
-        //uptodown = AnimationUtils.loadAnimation(this, R.anim.uptodown);
-        //downtoup = AnimationUtils.loadAnimation(this, R.anim.downtoup);
 
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
+                txt_email = email.getText().toString();
+                txt_password = password.getText().toString();
+
+
+
+                if (txt_email.isEmpty()){
+                    String e=getString(R.string.toast_email);
+                    Toast.makeText(MainActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                    email.requestFocus();
+                    return;
+                }
+                if (!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()){
+                    String ev=getString(R.string.toast_vemail);
+                    Toast.makeText(MainActivity.this, ""+ev, Toast.LENGTH_SHORT).show();
+                    email.requestFocus();
+                    return;
+                }
+                if (txt_password.isEmpty()){
+                    String ps=getString(R.string.toast_ps);
+                    Toast.makeText(MainActivity.this, ""+ps, Toast.LENGTH_SHORT).show();
+                    password.requestFocus();
+                    return;
+                }
+
+                //progressBar.setVisibility(View.VISIBLE);
+                animation.setImageResource(R.drawable.loading_6);
+                login();
             }
         });
 
@@ -150,9 +205,69 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //picture_holder.setAnimation(uptodown);
-        //btn_login.setAnimation(downtoup);
-        //register.setAnimation(downtoup);
+    }
+
+    private void login() {
+
+
+        auth = FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword(txt_email, txt_password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            download_data();
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            animation.setImageResource(R.drawable.shop_gif_1);
+                        }
+                    }
+                });
+
+    }
+
+    private void download_data() {
+
+
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        Log.d("LOGGED","user"+firebaseUser);
+
+        assert firebaseUser != null;
+        if(firebaseUser != null){
+            loggmail=firebaseUser.getEmail();
+
+        }
+        OneSignal.sendTag("User_ID",loggmail);
+
+
+        //OneSignal.sendTag("User_ID",loggmail);
+        final String userid = firebaseUser.getUid();
+
+        final Intent intent = new Intent (MainActivity.this,Home.class);
+        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("basket", "no");
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.getInstance().collection("Client").document(userid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().exists()) {
+
+                    progressBar.setVisibility(View.GONE);
+                    startActivity(intent);
+                    //Toast.makeText(MainActivity.this, "User", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    FirebaseAuth.getInstance().signOut();
+
+                    progressBar.setVisibility(View.GONE);
+                    String w=getString(R.string.Wrong);
+                    Toast.makeText(MainActivity.this, ""+w, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void loadlocale(){

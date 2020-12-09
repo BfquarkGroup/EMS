@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.onesignal.OneSignal;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
@@ -44,6 +46,7 @@ public class Register extends AppCompatActivity {
     String txt_phone;
     String txt_email;
     String txt_password;
+    private static String loggmail;
     String txt_confirm_password;
 
     @SuppressLint({"NewApi", "PrivateResource"})
@@ -186,7 +189,7 @@ public class Register extends AppCompatActivity {
                             hashMap.put("email", email.getText().toString());
                             hashMap.put("wilaya", wilaya.getText().toString());
                             hashMap.put("city", city.getText().toString());
-                            hashMap.put("password", password.getText().toString());
+                            //hashMap.put("password", password.getText().toString());
                             hashMap.put("imageURL", "default");
                             hashMap.put("description", "nothing added yet");
                             hashMap.put("lat", "0.0");
@@ -210,6 +213,16 @@ public class Register extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
 
+
+                                        FirebaseUser firebaseUser = auth.getCurrentUser();
+                                        Log.d("LOGGED","user"+firebaseUser);
+
+                                        assert firebaseUser != null;
+                                        if(firebaseUser != null){
+                                            loggmail=firebaseUser.getEmail();
+
+                                        }
+                                        OneSignal.sendTag("User_ID",loggmail);
                                     }else {
                                                 String er=getString(R.string.Error);
                                         Toast.makeText(Register.this, ""+er, Toast.LENGTH_SHORT).show();

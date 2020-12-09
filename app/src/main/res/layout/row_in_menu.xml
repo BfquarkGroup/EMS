@@ -23,7 +23,7 @@
             android:layout_height="160dp"
             android:gravity="center "
             android:padding="7dp"
-            android:background="@drawable/text_border_01"
+            android:background="@drawable/element_border_1"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView

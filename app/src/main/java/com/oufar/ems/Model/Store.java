@@ -2,9 +2,9 @@ package com.oufar.ems.Model;
 
 public class Store {
 
-   private String address, delivery, description, email, id, imageURL, phone, username, status, profession;
+   private String address, delivery, description, email, id, imageURL, phone, username, status, profession, rate;
 
-    public Store(String address, String delivery, String description, String email, String id, String imageURL, String phone, String username, String status, String profession) {
+    public Store(String address, String delivery, String description, String email, String id, String imageURL, String phone, String username, String status, String profession, String rate) {
         this.address = address;
         this.delivery = delivery;
         this.description = description;
@@ -15,6 +15,7 @@ public class Store {
         this.username = username;
         this.status = status;
         this.profession = profession;
+        this.rate = rate;
     }
 
     public Store() {
@@ -98,5 +99,13 @@ public class Store {
 
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
     }
 }

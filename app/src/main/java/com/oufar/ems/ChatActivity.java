@@ -1,9 +1,5 @@
 package com.oufar.ems;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -13,60 +9,92 @@ import android.os.StrictMode;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.oufar.ems.Model.Chat;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ChatActivity extends AppCompatActivity {
+
     private DatabaseReference reference;
     private FirebaseUser firebaseUser;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
 
-    private TextView storeName, status;
-    private String Store_id, Store_name, Store_image, Store_status, Store_email;
-    private ImageView statusIcon, send;
+    private CircleImageView avatar, avatar2;
+    private TextView storeName, status, ratingTitle;
+    private String Store_id, Client_image;
+    private ImageView rate, send;
+    private RelativeLayout ratingLayout;
+    private RatingBar ratingBar;
+    private Button ratingButton;
     private EditText message;
     static String Client_email;
+    private String click = "1";
+
+    private ArrayList<Chat> chatArrayList = new ArrayList();
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getColor(R.color.orange));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getColor(R.color.orange));
+            window.setStatusBarColor(getColor(R.color.white));
         }
 
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.orange));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.white));
         }
-        setNavigationBarButtonsColor(this, R.color.orange);
 
+        setNavigationBarButtonsColor(this, R.color.white);
+
+        avatar = findViewById(R.id.avatar);
+        avatar2 = findViewById(R.id.avatar2);
         storeName = findViewById(R.id.storeName);
         status = findViewById(R.id.status);
-        statusIcon = findViewById(R.id.statusIcon);
+        rate = findViewById(R.id.rate);
+        ratingLayout = findViewById(R.id.ratingLayout);
+        ratingTitle = findViewById(R.id.ratingTitle);
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingButton = findViewById(R.id.ratingButton);
         send = findViewById(R.id.send);
         message = findViewById(R.id.message);
 
@@ -74,37 +102,102 @@ public class ChatActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         Store_id = bundle.getString("Store_id");
-        Store_name = bundle.getString("Store_name");
-        Store_image = bundle.getString("Store_image");
-        Store_status = bundle.getString("Store_status");
-        Store_email = bundle.getString("Store_email");
+        Client_image = bundle.getString("Client_image");
+        Glide.with(ChatActivity.this)
+                .asBitmap()
+                .load(Client_image)
+                .into(avatar2);
+
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
 
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (click.equals("1")){
+
+                    ratingLayout.setVisibility(View.VISIBLE);
+                    click = "2";
+                }else if (click.equals("2")){
+
+                    ratingLayout.setVisibility(View.GONE);
+                    click = "1";
+                }
+
+            }
+        });
+
+        ratingLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ratingLayout.setVisibility(View.GONE);
+                click = "1";            }
+        });
+
+        // perform click event on button
+        ratingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String totalStars = "Total Stars:: " + ratingBar.getNumStars();
+                String rating = "Rating :: " + ratingBar.getRating();
+                ratingLayout.setVisibility(View.GONE);
+                click = "1";
+                Toast.makeText(getApplicationContext(), totalStars + "\n" + rating, Toast.LENGTH_LONG).show();
+            }
+        });
+
         //getEmail of client
-        FirebaseUser firebaseUser=auth.getCurrentUser();
+        final FirebaseUser firebaseUser=auth.getCurrentUser();
         assert firebaseUser !=null;
 
         if(firebaseUser!=null){
 
             Client_email=firebaseUser.getEmail();
 
-
-            //Toast.makeText(getContext(), ""+Client_email, Toast.LENGTH_SHORT).show();
         }
 
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
+        if (firebaseUser != null) {
 
-        storeName.setText(Store_name);
-        status.setText(Store_status);
+            firestore.collection("Store").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@com.google.firebase.database.annotations.Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
-        if (Store_status.equals("open")){
+                    assert queryDocumentSnapshots != null;
 
-            statusIcon.setImageResource(R.drawable.online);
-        }else if (Store_status.equals("close")){
+                    if (firebaseUser != null && queryDocumentSnapshots != null) {
 
-            statusIcon.setImageResource(R.drawable.offline);
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
+                            assert documentSnapshot != null;
+
+                            String address = documentSnapshot.getString("city");
+                            String delivery = documentSnapshot.getString("delivery");
+                            String description = documentSnapshot.getString("description");
+                            String email = documentSnapshot.getString("email");
+                            String id = documentSnapshot.getString("id");
+                            String imageURL = documentSnapshot.getString("imageURL");
+                            String phone = documentSnapshot.getString("phone");
+                            String username = documentSnapshot.getString("username");
+                            String status = documentSnapshot.getString("status");
+                            String profession = documentSnapshot.getString("profession");
+                            String rate = documentSnapshot.getString("rate");
+
+                            if (id.equals(Store_id)) {
+
+                                load(imageURL, username, status);
+                            }
+                        }
+
+                    }
+                }
+            });
         }
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -112,16 +205,20 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg=message.getText().toString();
 
-                chattNoty(msg, Store_id,Store_email,Client_email);
+                //chattNoty(msg, Store_id,Store_email,Client_email);
 
-                Toast.makeText(ChatActivity.this, Store_email, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void load(String ImageURL, String Username, String Status) {
 
-
-
-
+        storeName.setText(Username);
+        status.setText(Status);
+        Glide.with(ChatActivity.this)
+                .asBitmap()
+                .load(ImageURL)
+                .into(avatar);
     }
 
 
@@ -142,7 +239,8 @@ public class ChatActivity extends AppCompatActivity {
         double darkness = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
         return darkness < 0.5;
     }
-        private  void  chattNoty(String text ,String store_id ,String store_email,String clientEmail  ){
+
+    private  void  chattNoty(String text ,String store_id ,String store_email,String clientEmail  ){
 
             reference = FirebaseDatabase.getInstance().getReference("chattNoty").child(firebaseUser.getUid()).push();
 

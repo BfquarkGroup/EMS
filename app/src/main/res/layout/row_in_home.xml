@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingRight="7dp"
-    android:paddingLeft="7dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/box"
@@ -14,24 +12,23 @@
         android:layout_height="220dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
-        app:cardCornerRadius="7dp"
-        android:backgroundTint="@color/background_material_light">
+        app:cardCornerRadius="7dp">
 
         <RelativeLayout
             android:id="@+id/Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/text_border_1">
+            android:background="@drawable/element_border_1">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/favorite"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:elevation="2dp"
-                android:src="@drawable/heart"
+                android:src="@drawable/like_gray"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"/>
@@ -151,7 +148,7 @@
                         android:text="Username"
                         android:autoSizeTextType="uniform"
                         android:textSize="18sp"
-                        android:textColor="@color/dark_orange"
+                        android:textColor="@color/orange"
                         tools:ignore="RtlCompat"/>
 
                     <View

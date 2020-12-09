@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#06091B</color>
-    <color name="colorPrimaryDark">#06091B</color>
+    <color name="colorPrimary">#8C8A8A</color>
+    <color name="colorPrimaryDark">#8C8A8A</color>
     <color name="colorAccent">#FF5722</color>
     <color name="black">#121212</color>
     <color name="custom_black">#8C8A8A</color>
@@ -19,10 +19,21 @@
     <color name="custom_yellow">#FBE203</color>
     <color name="orange">#FF9800</color>
     <color name="dark_orange">#FF5722</color>
-    <color name="test">#7C06091B</color>
+    <color name="test">#1306091B</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="dark_blue">#0F1435</color>
 
     <color name="onesignal_bgimage_notif_title_color">#8BC34A</color>
     <color name="onesignal_bgimage_notif_body_color">#FFEB3B</color>
+
+    <color name="custom_white_3">#f6f6f6</color>
+    <color name="custom_white_4">#ededed</color>
+    <color name="main">#feae71</color>
+    <color name="brown">#B34E01</color>
+    <color name="custom_gray_2">#e5e5e5</color>
+    <color name="custom_blue_2">#3F51B5</color>
+    <color name="yellow_1">#ffc928</color>
+    <color name="yellow_2">#ff9f00</color>
+    <color name="yellow_3">#f67c01</color>
+    <color name="transparent_2">#68FF9F00</color>
 </resources>

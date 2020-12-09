@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/wallpaper1" />
+                android:src="@drawable/user_2" />
 
         </androidx.cardview.widget.CardView>
 
@@ -71,7 +71,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/wallpaper1"
+                    android:background="@drawable/default_photo"
                     android:layout_weight=".9">
 
                 </RelativeLayout>

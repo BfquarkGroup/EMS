@@ -70,7 +70,7 @@
     <string name="Reg_Hint_Email">Email</string>
     <string name="Reg_Hint_Ps">Mot de passe</string>
     <string name="Reg_Hint_ConPs">Confirmez le mot de passe</string>
-    <string name="Reg_Hint_Button"> S\'INSCRIRE</string>
+    <string name="Reg_Hint_Button"> S\'inscrire</string>
     <string name="Reg_Auth">Authentification</string>
     <string name="Reg_Adrs">Adresse</string>
     <!-- Register Toast-->
@@ -98,7 +98,7 @@
     <string name="Item_H">Accueil</string>
     <string name="Item_B">Panier</string>
     <string name="Item_F">Favoris</string>
-    <string name="Item_P">Profil</string>
+    <string name="Item_P">Moi</string>
     <!-- Fragment 1 -->
     <string name="search_hint">Chercher</string>
     <string name="food">Food</string>

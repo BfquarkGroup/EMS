@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ConfirmedOrders">
+    android:background="@color/custom_white_2"
+    tools:context=".ChatActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:background="@color/orange">
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,9 +25,9 @@
             android:gravity="center"
             tools:layout_editor_absoluteY="122dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="65dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="3dp"
                 android:layout_marginStart="7dp"
@@ -35,61 +35,63 @@
                 android:gravity="center"
                 android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/storeName"
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/user_2"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Store name"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/white"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    tools:ignore="DuplicateIds,RtlCompat"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/avatar"
+                    android:layout_toStartOf="@+id/rate"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/storeName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Name"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        tools:ignore="DuplicateIds,RtlCompat"/>
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="open"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/custom_black"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        tools:ignore="DuplicateIds,RtlCompat"/>
+
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/info"
-                    android:layout_weight="1.8"/>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/storeLayout"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="30dp"
-                android:gravity="start">
-
-                <ImageView
-                    android:id="@+id/statusIcon"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/rate"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginTop="5dp"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:src="@drawable/online"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/star"
+                    android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"/>
 
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/statusIcon"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Online"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:ignore="DuplicateIds,RtlCompat"/>
 
             </RelativeLayout>
 
@@ -103,72 +105,143 @@
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom"
+                android:id="@+id/recyclerView"
+                android:orientation="vertical"/>
 
             <RelativeLayout
-                android:layout_below="@id/toolbar"
+                android:id="@+id/ratingLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom"
+                android:visibility="gone"
+                android:background="@color/test">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/box"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    android:id="@+id/recyclerView"
-                    android:orientation="vertical"/>
+                    android:layout_height="200dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginBottom="-13dp"
+                    app:cardCornerRadius="7dp"
+                    android:layout_centerInParent="true"
+                    tools:ignore="MissingConstraints">
 
-                <RelativeLayout
-                    android:id="@+id/bottom"
-                    android:visibility="visible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="7dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
-                    android:background="@color/orange"
-                    android:gravity="start">
-
-                    <EditText
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/message"
-                        android:layout_toStartOf="@+id/send"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingStart="13dp"
-                        android:background="@drawable/text_border_"
-                        android:inputType="text"
-                        android:textColor="#686868"
-                        android:textAlignment="viewStart"
-                        android:hint="Aa"/>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/one">
 
-                    <ImageView
-                        android:id="@+id/send"
-                        android:layout_width="40dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/send_6"/>
+                        <TextView
+                            android:id="@+id/ratingTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="Rate Name"
+                            android:autoSizeTextType="uniform"
+                            android:textAlignment="center"
+                            android:textColor="@color/orange"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds,RtlCompat"/>
 
-                </RelativeLayout>
+                        <RatingBar
+                            android:layout_below="@+id/ratingTitle"
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:rating="2" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/ratingButton"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/box"
+                    android:elevation="3dp"
+                    android:background="@drawable/button_border_2"
+                    android:padding="10dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
 
             </RelativeLayout>
 
-        </LinearLayout >
+            <RelativeLayout
+                android:id="@+id/bottom"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="7dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:gravity="start">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/user_2"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/message"
+                    android:layout_toEndOf="@+id/avatar2"
+                    android:layout_toStartOf="@+id/send"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="7dp"
+                    android:background="@drawable/text_border_9"
+                    android:inputType="text"
+                    android:textColor="#686868"
+                    android:textAlignment="viewStart"
+                    android:hint="Aa..."/>
+
+                <ImageView
+                    android:id="@+id/send"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/send_4"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/boiling_1"
-        android:layout_gravity="center"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

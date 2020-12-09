@@ -15,8 +15,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginRight="13dp"
         android:layout_marginLeft="13dp"
-        app:cardCornerRadius="7dp"
-        android:backgroundTint="@color/background_material_light">
+        app:cardCornerRadius="7dp">
 
         <ImageView
             android:id="@+id/delete"
@@ -28,13 +27,23 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="7dp"/>
 
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/chat"
+            android:elevation="3dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="7dp"
+            android:layout_marginEnd="17dp"/>
+
 
         <LinearLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="170dp"
             android:gravity="center "
-            android:padding="7dp"
+            android:padding="3dp"
             android:background="@drawable/element_border_1"
             android:orientation="horizontal">
 
@@ -71,7 +80,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="top|end"
                     android:background="@drawable/text_border_2"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="-35dp"
                     android:layout_marginStart="-25dp"
                     android:gravity="center"
@@ -131,11 +140,10 @@
                                     android:paddingStart="5dp"
                                     android:paddingEnd="5dp"
                                     android:paddingTop="7dp"
-                                    android:autoSizeTextType="uniform"
                                     android:text="Plate"
                                     android:textAlignment="viewStart"
                                     android:textColor="@color/colorPrimaryDark"
-                                    android:textSize="20sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold"
                                     tools:ignore="DuplicateIds" />
 
@@ -155,11 +163,10 @@
                                     android:layout_marginBottom="7dp"
                                     android:layout_weight="0.3"
                                     android:paddingLeft="7dp"
-                                    android:autoSizeTextType="uniform"
                                     android:text="Price"
                                     android:textAlignment="viewStart"
                                     android:textColor="@color/custom_green"
-                                    android:textSize="20sp"
+                                    android:textSize="12sp"
                                     android:textStyle="normal"
                                     tools:ignore="DuplicateIds" />
 
@@ -176,10 +183,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ems="10"
-                                    android:autoSizeTextType="uniform"
                                     android:text="What might come with.. hrissa/maioneze"
                                     android:textColor="#414040"
-                                    android:textSize="18sp"
+                                    android:textSize="12sp"
                                     android:padding="7dp"
                                     android:textAlignment="viewStart" />
 
@@ -199,19 +205,11 @@
                         android:padding="0dp">
 
                         <ImageView
-                            android:id="@+id/refusedOrder"
+                            android:id="@+id/status"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            android:src="@drawable/refused_7"
-                            android:elevation="2dp"
+                            android:src="@drawable/waite"
                             android:layout_centerInParent="true"/>
-
-                        <pl.droidsonroids.gif.GifImageView
-                            android:id="@+id/animation"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/loading_1"/>
 
                     </RelativeLayout>
 

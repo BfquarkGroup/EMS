@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
+    android:gravity="bottom"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,11 +11,10 @@
         android:id="@+id/box"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
         app:cardCornerRadius="7dp">
 
         <ImageView
@@ -24,8 +23,8 @@
             android:layout_height="25dp"
             android:src="@drawable/close"
             android:elevation="3dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_gravity="end"/>
 
 
@@ -34,7 +33,7 @@
             android:id="@+id/Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/text_border_1"
+            android:background="@drawable/element_border_1"
             android:weightSum="2"
             android:orientation="horizontal">
 
@@ -55,11 +54,9 @@
                     android:paddingStart="11dp"
                     android:paddingEnd="7dp"
                     android:text="Username"
-                    android:autoSizeTextType="uniform"
                     android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/dark_orange"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:typeface="monospace"
                     tools:ignore="RtlCompat" />
@@ -127,11 +124,9 @@
                     android:paddingEnd="7dp"
                     android:textStyle="normal"
                     android:textAlignment="viewStart"
-                    android:textSize="16sp"
-                    android:typeface="monospace"
+                    android:textSize="14sp"
                     android:textColor="@color/custom_black"
-                    android:text="Description"
-                    android:autoSizeTextType="uniform"/>
+                    android:text="Description" />
 
                 <TextView
                     android:id="@+id/address"
@@ -167,11 +162,11 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="7dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="3dp"
+                    android:layout_marginEnd="7dp"
                     android:padding="5dp"
-                    android:background="@drawable/open_bg"
+                    android:background="@drawable/open_bg_2"
                     android:elevation="3dp"
                     android:weightSum="3"
                     android:gravity="center_vertical"
@@ -196,11 +191,11 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="7dp"
                     android:layout_alignParentEnd="true"
                     android:padding="5dp"
-                    android:background="@drawable/close_bg"
+                    android:background="@drawable/close_bg_2"
                     android:elevation="3dp"
                     android:weightSum="3"
                     android:gravity="center_vertical"

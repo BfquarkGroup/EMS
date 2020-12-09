@@ -7,7 +7,7 @@
 
 
     <solid
-        android:color="@color/white"/>
+        android:color="@color/custom_white_3"/>
 
 
     <corners

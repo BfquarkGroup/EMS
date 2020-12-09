@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">E M S</string>
+    <string name="app_name">Hergma</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -70,7 +70,7 @@
     <string name="Reg_Hint_Email">Email</string>
     <string name="Reg_Hint_Ps">Password</string>
     <string name="Reg_Hint_ConPs">Confirm password</string>
-    <string name="Reg_Hint_Button">REGISTER</string>
+    <string name="Reg_Hint_Button">Register</string>
     <string name="Reg_Adrs">Address</string>
     <string name="Reg_Auth">Authentication</string>
     <!-- Register Toast-->
@@ -98,7 +98,7 @@
     <string name="Item_H">Home</string>
     <string name="Item_B">Basket</string>
     <string name="Item_F">Favorite</string>
-    <string name="Item_P">Profile</string>
+    <string name="Item_P">Me</string>
     <!-- Fragment 1 -->
     <string name="search_hint">Search</string>
     <string name="food">Food</string>
@@ -123,7 +123,7 @@
     <!-- Fragment fav -->
     <string name="fav">Favorite stores</string>
     <!-- menu-->
-    <string name="basket">BASKET</string>
+    <string name="basket">Confirm</string>
     <string name="nothing">Nothing added yet</string>
     <!-- Fragment 3 -->
 
@@ -137,7 +137,7 @@
     <string name="Frag3_Button">CONFIRM</string>
     <string name="Lang"> CHANGE LANGUAGE</string>
     <string name="auth">Authentication</string>
-        <string name="cord">Home coordinates</string>
+    <string name="cord">Home coordinates</string>
     <string name="desc">Description..</string>
     <string name="ChooseLang">CHOOSE LANGUAGE ..</string>
     <string name="Frag3_logout">Logout</string>

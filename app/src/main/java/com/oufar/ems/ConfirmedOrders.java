@@ -2,30 +2,22 @@ package com.oufar.ems;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,16 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.oufar.ems.Adapter.RecyclerViewAdapter;
-import com.oufar.ems.Adapter.RecyclerViewAdapter_5;
-import com.oufar.ems.Database.DB;
-import com.oufar.ems.Fragments.Fragment_2;
+import com.onesignal.OneSignal;
+import com.oufar.ems.Adapter.BasketAdapter;
 import com.oufar.ems.Model.Info;
 import com.oufar.ems.Model.Plate;
-import com.oufar.ems.Model.Store;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -67,6 +55,12 @@ public class ConfirmedOrders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmed_orders);
 
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -233,7 +227,7 @@ public class ConfirmedOrders extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter_5 adapter = new RecyclerViewAdapter_5(this, mNames);
+        BasketAdapter adapter = new BasketAdapter(this, mNames, "");
         recyclerView.setAdapter(adapter);
     }
 
